@@ -307,9 +307,9 @@ function! htmlcomplete#CompleteTags(findstart, base)
 							let classlines = filter(stylelines, "v:val =~ '#[a-zA-Z0-9_-]\\+'")
 
 						endif
+					let classes += classlines
 					endif
 					" We gathered classes definitions from all external files
-					let classes += classlines
 				endfor
 				if internal == 1
 					let classes += headclasslines

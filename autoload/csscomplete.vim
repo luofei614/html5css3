@@ -3,7 +3,7 @@
 " Maintainer:	Mikolaj Machowski ( mikmach AT wp DOT pl )
 " Last Change:	2007 May 5
 
-	let s:values = split("azimuth background background-attachment background-color background-image background-position background-repeat border bottom border-collapse border-color border-spacing border-style border-top border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color  border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-width caption-side clear clip color content counter-increment counter-reset cue cue-after cue-before cursor display direction elevation empty-cells float font font-family font-size font-style font-variant font-weight height hanging-punctuation left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-right margin-left margin-top margin-bottom max-height max-width min-height min-width orphans outline outline-color outline-style outline-width overflow padding padding-top padding-right padding-bottom padding-left page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position punctuation-trim quotes right richness speak speak-header speak-numeral speak-punctuation speech-rate stress table-layout text-align text-align-last text-decoration text-emphasis text-indent text-justify text-transform text-wrap top unicode-bidi vertical-align visibility voice-family volume white-space white-space-collapse width widows word-spacing z-index border-image border-radius box-shadow background-origin background-clip background-size opacity text-shadow text-overflow text-outline word-wrap box-sizing resize outline outline-width outline-style outline-offset outline-color nav-up nav-right nav-down nav-left nav-index columns column-widows column-span column-rule column-rule-color column-width column-rule-style column-gap column-fill column-count column-break-before column-break-after word-break")
+	let s:values = split("azimuth background background-attachment background-color background-image background-position background-repeat border bottom border-collapse border-color border-spacing border-style border-top border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color  border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width border-bottom-width border-left-width border-width caption-side clear clip color content counter-increment counter-reset cue cue-after cue-before cursor display direction elevation empty-cells float font font-family font-size font-style font-variant font-weight height hanging-punctuation left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-right margin-left margin-top margin-bottom max-height max-width min-height min-width orphans outline outline-color outline-style outline-width overflow padding padding-top padding-right padding-bottom padding-left page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position punctuation-trim quotes right richness speak speak-header speak-numeral speak-punctuation speech-rate stress table-layout text-align text-align-last text-decoration text-emphasis text-indent text-justify text-transform text-wrap top unicode-bidi vertical-align visibility voice-family volume white-space white-space-collapse width widows word-spacing z-index border-image border-radius box-shadow background-origin background-clip background-size opacity text-shadow text-overflow text-outline word-wrap box-sizing resize outline outline-width outline-style outline-offset outline-color nav-up nav-right nav-down nav-left nav-index columns column-widows column-span column-rule column-rule-color column-width column-rule-style column-gap column-fill column-count column-break-before column-break-after word-break animation transition transform perspective transform-style backface-visibility")
 
 function! csscomplete#CompleteCSS(findstart, base)
 
@@ -110,7 +110,7 @@ elseif borders[max(keys(borders))] == 'colon'
 	elseif prop == 'background-color'
 		let values = ["transparent", "rgb(", "#"]
 	elseif prop == 'background-image'
-		let values = ["url(", "none"]
+		let values = ["url(", "none","linear-gradient(","radial-gradient(","repeating-linear-gradient(","repeating-radial-gradient("]
 	elseif prop == 'background-position'
 		let vals = matchstr(line, '.*:\s*\zs.*')
 		if vals =~ '^\%([a-zA-Z]\+\)\?$'
@@ -123,7 +123,17 @@ elseif borders[max(keys(borders))] == 'colon'
 	elseif prop == 'background-repeat'
 		let values = ["repeat", "repeat-x", "repeat-y", "no-repeat"]
 	elseif prop == 'background'
-		let values = ["url(", "scroll", "fixed", "transparent", "rgb(", "#", "none", "top", "center", "bottom" , "left", "right", "repeat", "repeat-x", "repeat-y", "no-repeat"]
+		let values = ["url(", "scroll", "fixed", "transparent", "rgb(", "#", "none", "top", "center", "bottom" , "left", "right", "repeat", "repeat-x", "repeat-y", "no-repeat","linear-gradient(","radial-gradient(","repeating-linear-gradient(","repeating-radial-gradient("]
+    elseif prop == 'animation'
+        let values = ["infinite","ease","linear","ease-in","ease-out","ease-in-out","cubic-bezier("]
+    elseif prop == 'transition'
+        let values = ["infinite","ease","linear","ease-in","ease-out","ease-in-out","cubic-bezier("]
+    elseif prop == 'transform'
+        let values = ["scale(","rotate(","rotateX(","rotateY(","rotateZ(","translate(","translateX(","translateY(","translateZ(","skew(","perspective("]
+    elseif prop == 'transform-style'
+        let values = ["preserve-3d"]
+    elseif prop == 'backface-visibility'
+        let values = ["hidden","visible"]
 	elseif prop == 'border-collapse'
 		let values = ["collapse", "separate"]
 	elseif prop == 'border-color'
@@ -398,7 +408,7 @@ elseif borders[max(keys(borders))] == 'colon'
 		" trying to complete pseudo-(class|element)
 		let element = tolower(matchstr(line, '\zs[a-zA-Z1-6]*\ze:[^:[:space:]]\{-}$'))
 		if stridx(',a,abbr,acronym,address,area,b,base,bdo,big,blockquote,body,br,button,caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,fieldset,form,head,h1,h2,h3,h4,h5,h6,hr,html,i,img,input,ins,kbd,label,legend,li,link,map,meta,noscript,object,ol,optgroup,option,p,param,pre,q,samp,script,select,small,span,strong,style,sub,sup,table,tbody,td,textarea,tfoot,th,thead,title,tr,tt,ul,var,', ','.element.',') > -1
-			let values = ["first-child", "link", "visited", "hover", "active", "focus", "lang", "first-line", "first-letter", "before", "after","root","nth-child(","nth-last-child(","nth-of-type(","nth-last-of-type(","last-child","first-of-type","only-child","only-of-type","empty","checked","enabled","disabled",":selection","not(","target"]
+			let values = ["first-child", "link", "visited", "hover", "active", "focus", "lang", "first-line", "first-letter", "before", "after","root","nth-child(","nth-last-child(","nth-of-type(","nth-last-of-type(","last-child","first-of-type","only-child","only-of-type","empty","checked","enabled","disabled",":selection","not(","target","require","fouce","invalid","valid"]
 		else
 			return []
 		endif
@@ -484,7 +494,7 @@ elseif borders[max(keys(borders))] == 'atrule'
 
 	endif
 
-	let values = ["charset", "page", "media", "import", "font-face"]
+	let values = ["charset", "page", "media", "import", "font-face", "keyframes"]
 
 	let entered_atrule = matchstr(line, '.*@\zs[a-zA-Z-]*$')
 
