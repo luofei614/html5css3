@@ -769,4 +769,7 @@ function! htmlcomplete#CheckDoctype() " {{{
 	endif
 endfunction
 " }}}
+function! htmlcomplete#DetectOmniFlavor() " {{{
+endfunction
+"}}}
 " vim:set foldmethod=marker:
